@@ -30,6 +30,9 @@ class Menu extends \yii\db\ActiveRecord
                 // 'rightAttribute' => 'rgt',
                 // 'depthAttribute' => 'depth',
             ],
+            'htmlTree'=>[
+                'class' => \wokster\treebehavior\NestedSetsTreeBehavior::className()
+            ],
         ];
     }
 

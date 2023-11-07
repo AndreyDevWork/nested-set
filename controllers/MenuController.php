@@ -31,11 +31,32 @@ class MenuController extends Controller
         );
     }
 
-    /**
-     * Lists all menu models.
-     *
-     * @return string
-     */
+    public function actionMove($item, $action, $second)
+    {
+        $item_model = Menu::findOne($item);
+        $second_model = Menu::findOne($second);
+        switch ($action) {
+            case 'after':
+                $item_model->insertAfter($second_model);
+                break;
+            case 'before':
+                $item_model->insertBefore($second_model);
+                break;
+            case 'over':
+                $item_model->appendTo($second_model);
+                break;
+        }
+        $item_model->save();
+        return true;
+    }
+
+
+    public function actionTree($id = 1)
+    {
+        return$this->render('tree', [
+            'data' => Menu::findOne($id)->tree()
+        ]);
+    }
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
